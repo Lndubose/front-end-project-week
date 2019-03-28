@@ -13,26 +13,19 @@ class NoteForm extends React.Component {
 
     componentDidMount() {
         if (this.props.match.url === '/noteform/create') {
-            return null;
-        } else {
-            const id = this.props.match.params.id;
-            this.props.getANote(id);
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.note._id !== prevProps.note._id) {
-            this.setState({ ...this.props.note });
-        }
-    }
-
-    componentWillReceiveProps() {
-        if (this.props.match.url === '/noteform/create') {
             this.setState({
                 title: '',
                 textBody: '',
             });
         } else {
+            const id = this.props.match.params.id;
+            this.props.getANote(id);
+            this.setState({ ...this.props.note });
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.note._id !== prevProps.note._id) {
             this.setState({ ...this.props.note });
         }
     }
