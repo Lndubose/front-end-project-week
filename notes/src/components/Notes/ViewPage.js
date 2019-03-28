@@ -9,7 +9,6 @@ import { Button, ViewContainer } from './noteStyle';
 
 class ViewPage extends React.Component {
     state = {
-        note: this.props.note,
         showModal: false,
     };
 
@@ -22,7 +21,6 @@ class ViewPage extends React.Component {
         const id = this.props.match.params.id;
         if (this.props.note._id !== prevProps.note._id) {
             this.props.getANote(id);
-            this.setState({ note: this.props.note });
         }
     }
 
@@ -33,20 +31,20 @@ class ViewPage extends React.Component {
 
     deleteClick = e => {
         e.preventDefault();
-        this.props.deleteNote(this.state.note._id);
+        this.props.deleteNote(this.props.note._id);
         this.props.history.goBack();
     };
 
     editClick = e => {
         e.preventDefault();
-        this.props.history.push(`/noteform/${this.state.note._id}`);
+        this.props.history.push(`/noteform/${this.props.note._id}`);
     };
 
     render() {
         const description =
-            this.state.note.textBody === undefined
+            this.props.note.textBody === undefined
                 ? []
-                : this.state.note.textBody.split('\n');
+                : this.props.note.textBody.split('\n');
         return (
             <ViewContainer>
                 <Button onClick={this.editClick} className="left">
@@ -54,7 +52,7 @@ class ViewPage extends React.Component {
                 </Button>
                 <Button onClick={this.toggleModal}>delete</Button>
                 <div>
-                    <h3>{this.state.note.title}</h3>
+                    <h3>{this.props.note.title}</h3>
                     {description.map((descript, index) => {
                         return <p key={index}>{descript}</p>;
                     })}
