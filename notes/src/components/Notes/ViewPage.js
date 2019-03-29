@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { deleteNote, getData, getANote } from '../../store/actions';
 import Modal from './Modal/Modal';
@@ -15,13 +16,6 @@ class ViewPage extends React.Component {
     componentDidMount() {
         const id = this.props.match.params.id;
         this.props.getANote(id);
-    }
-
-    componentDidUpdate(prevProps) {
-        const id = this.props.match.params.id;
-        if (this.props.note._id !== prevProps.note._id) {
-            this.props.getANote(id);
-        }
     }
 
     toggleModal = e => {
@@ -70,10 +64,21 @@ class ViewPage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        notes: state.notes,
-        success: state.success,
         note: state.note,
     };
+};
+
+ViewPage.propTypes = {
+    deleteNote: PropTypes.func,
+    getANote: PropTypes.func,
+    histroy: PropTypes.object,
+    location: PropTypes.object,
+    match: PropTypes.object,
+    note: PropTypes.shape({
+        _id: PropTypes.number,
+        textBody: PropTypes.string,
+        title: PropTypes.string,
+    }),
 };
 
 export default connect(

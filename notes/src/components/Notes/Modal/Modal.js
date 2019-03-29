@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
     ModalContainer,
@@ -20,5 +21,11 @@ function Modal(props) {
         </ModalContainer>
     );
 }
+
+Modal.propTypes = {
+    deleteClick: PropTypes.func,
+    showModal: PropTypes.bool,
+    toggleModal: PropTypes.func,
+};
 
 export default Modal;

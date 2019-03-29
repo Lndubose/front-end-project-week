@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { NoteStyle } from './noteStyle';
 
@@ -17,5 +18,13 @@ function Note(props) {
         </NoteStyle>
     );
 }
+
+Note.propTypes = {
+    note: PropTypes.shape({
+        _id: PropTypes.number.isRequired,
+        textBody: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+    }),
+};
 
 export default Note;

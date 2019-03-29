@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { addNote, editNote, getANote } from '../../store/actions';
 
@@ -82,6 +83,23 @@ const mapStateToProps = state => {
     return {
         note: state.note,
     };
+};
+
+NoteForm.propTypes = {
+    addNote: PropTypes.func,
+    editNote: PropTypes.func,
+    getANote: PropTypes.func,
+    histroy: PropTypes.object,
+    location: PropTypes.object,
+    match: PropTypes.object,
+    note: PropTypes.oneOfType([
+        PropTypes.object,
+        PropTypes.shape({
+            _id: PropTypes.number.isRequired,
+            textBody: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+        }),
+    ]),
 };
 
 export default connect(
